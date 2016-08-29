@@ -28,3 +28,5 @@ group :test do
   gem 'capybara', '~> 2.8', '>= 2.8.1'
 end 
 
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'autoprefixer-rails', '~> 6.4', '>= 6.4.0.3'
