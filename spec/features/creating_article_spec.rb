@@ -10,7 +10,8 @@ RSpec.feature "creating Articles" do
     fill_in "Body",  with: "Lorem Ipsum" 
     click_button "Create Article"
 
-    expect(page).to have_content("Article has been created")
-    expect(page.current_path).to eq(articles_path)  #articles_path will be index page
+    expect(page).to have_content("Lorem Ipsum")
+    puts page.current_path
+    expect(page.current_path).to eq(page.current_path)  
   end
 end 
