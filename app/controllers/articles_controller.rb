@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   
-  def index    
+  def index
+  @articles = Article.all   
   end
 
   def new
@@ -16,7 +17,7 @@ class ArticlesController < ApplicationController
         format.html { redirect_to(@article) }
         format.xml { render xml: @article, status: :created, location: @article }
       else
-        flash[:danger] = "Article has not been created"
+        flash.now[:danger] = "Article has not been created"
         format.html { render action: "new" }
         #format.xml { render xml: @article.errors, status: :unprocessable_entity }
       end
