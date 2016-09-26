@@ -12,10 +12,11 @@ class ArticlesController < ApplicationController
     
     respond_to do |format|
       if @article.save
-        flash[:notice] = 'Article was successfully created.'        
+        flash[:success] = 'Article has been created.'        
         format.html { redirect_to(@article) }
         format.xml { render xml: @article, status: :created, location: @article }
       else
+        flash[:danger] = "Article has not been created"
         format.html { render action: "new" }
         #format.xml { render xml: @article.errors, status: :unprocessable_entity }
       end
