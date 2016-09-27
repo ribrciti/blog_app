@@ -1,3 +1,9 @@
-<h1>Articles Show Page</h1>
-
-<%= @article.inspect %>
+<article class="detail-article">
+  <h1 class="article-detail-title"><%= @article.title %></h1>
+  <div class="glyphicon-calendar" id="article-date">
+    <%= @article.created_at.strftime("%b %d, %y") %>
+  </div>
+  <div class="article-body">
+    <%= @article.body %>
+  </div>
+</article>

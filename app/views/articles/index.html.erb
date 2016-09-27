@@ -5,10 +5,11 @@
 <% @articles.each do |article| %>
   <div class="well well-lg">
     <div class="article-title">
-      <%= link_to article.title, @article %>
+      <%= link_to article.title, article_path(article) %>
     </div>
     <div class="article-body">
       <%= truncate(article.body, length: 500) %>
     </div>
   </div>
 <% end %>
+
