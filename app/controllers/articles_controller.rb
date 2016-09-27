@@ -24,8 +24,28 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+
+    respond_to do |format|
+      if @article.update(article_params)
+        flash[:success] = 'Article has been updated.'        
+        format.html { redirect_to(@article) }
+        format.xml { render xml: @article, status: :created, location: @article }
+      else
+        flash.now[:danger] = "Article has not been updated"
+        format.html { render action: "edit" }
+        #format.xml { render xml: @article.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def show
-     @article = Article.find(params[:id])
+    @article = Article.find(params[:id])
   end
 
   private
@@ -34,3 +54,4 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :body)
   end
 end
+
