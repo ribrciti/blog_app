@@ -28,19 +28,27 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    if @article.user != current_user
+      flash[:danger] = "You can only edit your own article."
+      redirect_to root_path
+    end
   end
 
   def update
-
-    respond_to do |format|
-      if @article.update(article_params)
-        flash[:success] = 'Article has been updated.'        
-        format.html { redirect_to(@article) }
-        format.xml { render xml: @article, status: :created, location: @article }
-      else
-        flash.now[:danger] = "Article has not been updated"
-        format.html { render action: "edit" }
-        #format.xml { render xml: @article.errors, status: :unprocessable_entity }
+    if @article.user != current_user
+      flash[:danger] = "You can only edit your own article."
+      redirect_to root_path  
+    else  
+      respond_to do |format|
+        if @article.update(article_params)
+          flash[:success] = 'Article has been updated.'        
+          format.html { redirect_to(@article) }
+          format.xml { render xml: @article, status: :created, location: @article }
+        else
+          flash.now[:danger] = "Article has not been updated"
+          format.html { render action: "edit" }
+          #format.xml { render xml: @article.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
