@@ -8,7 +8,7 @@ RSpec.feature "Creating Articles" do
 
   before do
     @test = User.create!(email: "test@test.com", password: "asdfasdf")
-    sign_in(@test, scope: :user)
+    sign_in(@test)
   end
 
   it "A user creates a new article" do 

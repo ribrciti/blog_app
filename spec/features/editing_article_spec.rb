@@ -8,7 +8,7 @@ RSpec.feature "Editing an Articles" do
 
   before do
     @test = User.create!(email: "test@test.com", password: "asdfasdf")
-    sign_in(@test, scope: :user)
+    sign_in(@test)
     @article = Article.create(title: "The first article", body: "Body of the first article", :user => @test)
   end
 
