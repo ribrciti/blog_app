@@ -1,10 +1,16 @@
 require 'rails_helper'
 
 RSpec.feature "listing Articles" do 
-  
+
+  RSpec.configure do |config|
+    config.include Devise::Test::IntegrationHelpers, type: :feature
+  end
+
   before do
-   @article1 = Article.create(title: "The first article", body: "Body of the first article")
-   @article2 = Article.create(title: "The second article", body: "Body of the second article")
+    @test = User.create!(email: "test@test.com", password: "asdfasdf")
+    sign_in(@test, scope: :user)
+    @article1 = Article.create(title: "The first article", body: "Body of the first article", :user => @test)
+    @article2 = Article.create(title: "The second article", body: "Body of the second article", :user => @test)
   end
 
   it "List all articles" do

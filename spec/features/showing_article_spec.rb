@@ -1,8 +1,15 @@
 require 'rails_helper'
 
 RSpec.feature "Showing an Articles" do 
+
+  RSpec.configure do |config|
+    config.include Devise::Test::IntegrationHelpers, type: :feature
+  end
+
   before do
-   @article = Article.create(title: "The first article", body: "Body of the first article")
+    @test = User.create!(email: "test@test.com", password: "asdfasdf")
+    sign_in(@test, scope: :user)
+    @article = Article.create(title: "The first article", body: "Body of the first article", :user => @test)    
   end
 
   it "Display individual article" do

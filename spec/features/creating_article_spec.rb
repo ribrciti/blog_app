@@ -1,18 +1,28 @@
 require 'rails_helper'
 
+RSpec.configure do |config|
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+end
+
 RSpec.feature "Creating Articles" do 
+
+  before do
+    @test = User.create!(email: "test@test.com", password: "asdfasdf")
+    sign_in(@test, scope: :user)
+  end
+
   it "A user creates a new article" do 
     visit "/"
 
     click_link "New Article"
 
     fill_in "Title",  with: "Creating first article" 
-    fill_in "Body",  with: "Lorem Ipsum" 
+    fill_in "Body",  with: "Lorem Ipsum"
     click_button "Create Article"
 
     expect(page).to have_content("Lorem Ipsum")
-    puts page.current_path
-    expect(page.current_path).to eq(page.current_path)  
+    expect(page.current_path).to eq(page.current_path)
+    expect(page).to have_content("Signed in as: #{@test.email}") 
   end
 
   it "A user fails to create a new article" do

@@ -1,9 +1,15 @@
 require 'rails_helper'
 
+RSpec.configure do |config|
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+end
+
 RSpec.feature "Editing an Articles" do 
 
   before do
-    @article = Article.create(title: "The first article", body: "Body of the first article")
+    @test = User.create!(email: "test@test.com", password: "asdfasdf")
+    sign_in(@test, scope: :user)
+    @article = Article.create(title: "The first article", body: "Body of the first article", :user => @test)
   end
 
   it "A user updates an article" do
