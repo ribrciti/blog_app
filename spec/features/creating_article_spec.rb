@@ -26,7 +26,7 @@ RSpec.feature "Creating Articles" do
   end
 
   it "A user fails to create a new article" do
-     visit "/"
+    visit "/"
 
     click_link "New Article"
 
